@@ -13,9 +13,10 @@ An utterly fantastic project starter template for Django 1.11.
 To use this project, follow these steps:
 
 1. Create a directory for your project(`$ mkdir projectname;cd projectname`) 
-1. Create your working environment. (`$ python3 -m venv env`)
-2. Install Django (`$ pip install django`)
-3. Create a new project using this template
+2. Create your working environment. (`$ python3 -m venv env`)
+3. Activate the environment. (`$ source env/bin/activate`)
+4. Install Django (`$ pip install django`)
+5. Create a new project using this template
 
 ## Creating Your Project
 

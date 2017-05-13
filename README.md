@@ -28,6 +28,10 @@ Using this template to create a new Django app is easy::
 
 You can replace ``projectname`` with your desired project name.
 
+If you encounter an error like
+`CommandError: couldn't download URL https://github.com/RadialDevGroup/heroku-django-template/archive/master.zip to master.zip: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:749)>`
+check out this [StackOverflow](http://stackoverflow.com/questions/41691327/ssl-sslerror-ssl-certificate-verify-failed-certificate-verify-failed-ssl-c)
+
 ## Deployment to Heroku
 
     $ git init

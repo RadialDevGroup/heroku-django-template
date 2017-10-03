@@ -36,6 +36,8 @@ TEST = 'test' in sys.argv
 
 SITE_URL = env.get('SITE_URL', 'http://localhost:8000')
 
+SECURE_SSL_REDIRECT = not DEBUG and not TEST
+
 # Application definition
 
 INSTALLED_APPS = [

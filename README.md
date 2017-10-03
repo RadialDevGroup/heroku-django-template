@@ -13,9 +13,10 @@ An utterly fantastic project starter template for Django 1.11.
 To use this project, follow these steps:
 
 1. Create a directory for your project(`$ mkdir projectname;cd projectname`) 
-1. Create your working environment. (`$ python3 -m venv env`)
-2. Install Django (`$ pip install django`)
-3. Create a new project using this template
+2. Create your working environment. (`$ python3 -m venv env`)
+3. Activate the environment. (`$ source env/bin/activate`)
+4. Install Django (`$ pip install django`)
+5. Create a new project using this template
 
 ## Creating Your Project
 
@@ -26,6 +27,10 @@ Using this template to create a new Django app is easy::
 (If this doesn't work on windows, replace `django-admin.py` with `django-admin`)
 
 You can replace ``projectname`` with your desired project name.
+
+If you encounter an error like
+`CommandError: couldn't download URL https://github.com/RadialDevGroup/heroku-django-template/archive/master.zip to master.zip: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:749)>`
+check out this [StackOverflow](http://stackoverflow.com/questions/41691327/ssl-sslerror-ssl-certificate-verify-failed-certificate-verify-failed-ssl-c)
 
 ## Deployment to Heroku
 

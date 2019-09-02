@@ -50,7 +50,7 @@ SECURE_SSL_REDIRECT = not DEBUG and not TEST
 
 INSTALLED_APPS = [
     # Add your custom apps here
-    'ohai.apps.{{ project_name|capfirst }}AdminConfig',
+    '{{ project_name }}.apps.{{ project_name|capfirst }}AdminConfig',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -78,7 +78,9 @@ ROOT_URLCONF = '{{ project_name }}.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(PROJECT_ROOT, 'templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

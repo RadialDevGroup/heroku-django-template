@@ -1,4 +1,4 @@
 DEBUG: true
-SECRET_KEY: {{ secret_key }}
+SECRET_KEY: "{{ secret_key }}"
 # Safely Omit:
 # TIME_ZONE: 'US/Mountain'

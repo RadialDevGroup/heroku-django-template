@@ -1,6 +1,7 @@
 venv
 env
 *.pyc
+*.DS_Store
 staticfiles
 .env
 settings.yml

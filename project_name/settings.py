@@ -3,14 +3,15 @@ Django settings for {{ project_name }} project on Heroku. For more info, see:
 https://github.com/RadialDevGroup/heroku-django-template
 
 For more information on this file, see
-https://docs.djangoproject.com/en/1.11/topics/settings/
+https://docs.djangoproject.com/en/2.0/topics/settings/
 
 For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.11/ref/settings/
+https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os, sys
 import dj_database_url
+import django_heroku
 import yaml
 from django.core.exceptions import ImproperlyConfigured
 
@@ -25,7 +26,7 @@ except:
     env = os.environ
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
+# See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env.get("SECRET_KEY", "{{ secret_key }}")
@@ -87,7 +88,7 @@ WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -99,7 +100,7 @@ DATABASES = {
 }
 
 # Change 'default' database configuration with $DATABASE_URL.
-DATABASES['default'].update(dj_database_url.config(conn_max_age=500))
+DATABASES['default'].update(dj_database_url.config(conn_max_age=500, ssl_require=True))
 
 if DEBUG == False:
     AUTH_PASSWORD_VALIDATORS = [
@@ -118,7 +119,7 @@ if DEBUG == False:
     ]
 
 # Internationalization
-# https://docs.djangoproject.com/en/1.11/topics/i18n/
+# https://docs.djangoproject.com/en/2.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = env.get('TIME_ZONE', 'UTC')
@@ -133,7 +134,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ALLOWED_HOSTS = ['*']
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.11/howto/static-files/
+# https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
@@ -157,3 +158,5 @@ if env.get('ROLLBAR_ACCESS_TOKEN', None):
         'root': '',
     }
 
+# Activate Django-Heroku.
+django_heroku.settings(locals())

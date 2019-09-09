@@ -26,14 +26,20 @@ Try the [Cheat Script](https://github.com/RadialDevGroup/heroku-django-template/
 3. Install Django (`$ pipenv install django~=2.2`)
 4. Remove the Pipfile to allow the template to replace it. (`$ rm Pipfile`)
 5. Create a new project using this template:
-
+    ```
     $ django-admin.py startproject --template=https://github.com/RadialDevGroup/heroku-django-template/archive/Django-2.2.zip --name=Procfile --name settings.yml --name settings.yml.example projectname .
+    ```
 
     (If this doesn't work on windows, replace `django-admin.py` with `django-admin`)
 
     You can replace ``projectname`` with your desired project name.
 
 6. Install dependencies. (`pipenv install --dev`)
+
+## Troubleshooting
+If you encounter an error like
+`CommandError: couldn't download URL https://github.com/RadialDevGroup/heroku-django-template/archive/Django-2.2.zip to Django-2.2.zip: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:749)>`
+check out this [StackOverflow](http://stackoverflow.com/questions/41691327/ssl-sslerror-ssl-certificate-verify-failed-certificate-verify-failed-ssl-c)
 
 ## Deployment to Heroku
 

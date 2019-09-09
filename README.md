@@ -10,9 +10,16 @@ An utterly fantastic project starter template for Django 2.2.
 
 ## How to Use
 
+### Prerequisites
+
+ - [Python 3.7](https://www.python.org/downloads/) should be installed on your machine
+ - [Pipenv](https://docs.pipenv.org/en/latest/) (`pip install pipenv`)
+
+### Option 1: One-command script
+
 Try the [Cheat Script](https://github.com/RadialDevGroup/heroku-django-template/wiki/Cheat-Script-(django_new))
 
-Or, follow these steps:
+### Option 2: Manual steps
 
 1. Create a directory for your project(`$ mkdir projectname;cd projectname`)
 2. Activate the environment. (`$ pipenv shell`)

@@ -37,9 +37,13 @@ Try the [Cheat Script](https://github.com/RadialDevGroup/heroku-django-template/
 6. Install dependencies. (`pipenv install --dev`)
 
 ## Troubleshooting
-If you encounter an error like
-`CommandError: couldn't download URL https://github.com/RadialDevGroup/heroku-django-template/archive/Django-2.2.zip to Django-2.2.zip: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:749)>`
-check out this [StackOverflow](http://stackoverflow.com/questions/41691327/ssl-sslerror-ssl-certificate-verify-failed-certificate-verify-failed-ssl-c)
+  - If you encounter an error like
+      
+      `CommandError: couldn't download URL https://github.com/RadialDevGroup/heroku-django-template/archive/Django-2.2.zip to Django-2.2.zip: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:749)>`
+      
+      check out this [StackOverflow](http://stackoverflow.com/questions/41691327/ssl-sslerror-ssl-certificate-verify-failed-certificate-verify-failed-ssl-c)
+
+  - If pipenv install fails due to a `library not found for -lssl`, [try this](https://stackoverflow.com/a/39800677).
 
 ## Deployment to Heroku
 

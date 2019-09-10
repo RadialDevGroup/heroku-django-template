@@ -1,36 +1,49 @@
 # Heroku Django Starter Template
 
-An utterly fantastic project starter template for Django 1.11.
+An utterly fantastic project starter template for Django 2.2.
 
 ## Features
 
 - Production-ready configuration for Static Files, Database Settings, Gunicorn, etc.
 - Enhancements to Django's static file serving functionality via WhiteNoise.
-- Latest Python 3.6 runtime environment. 
+- Latest Python 3.7 runtime environment.
 
 ## How to Use
 
-To use this project, follow these steps:
+### Prerequisites
 
-1. Create a directory for your project(`$ mkdir projectname;cd projectname`) 
-2. Create your working environment. (`$ python3 -m venv env`)
-3. Activate the environment. (`$ source env/bin/activate`)
-4. Install Django (`$ pip install django`)
-5. Create a new project using this template
+ - [Python 3.7](https://www.python.org/downloads/) should be installed on your machine
+ - [Pipenv](https://docs.pipenv.org/en/latest/) (`pip install pipenv`)
 
-## Creating Your Project
+### Option 1: One-command script
 
-Using this template to create a new Django app is easy::
+Try the [Cheat Script](https://github.com/RadialDevGroup/heroku-django-template/wiki/Cheat-Script-(django_new))
 
-    $ django-admin.py startproject --template=https://github.com/RadialDevGroup/heroku-django-template/archive/master.zip --name=Procfile projectname .
+### Option 2: Manual steps
 
-(If this doesn't work on windows, replace `django-admin.py` with `django-admin`)
+1. Create a directory for your project(`$ mkdir projectname;cd projectname`)
+2. Activate the environment. (`$ pipenv shell`)
+3. Install Django (`$ pipenv install django~=2.2`)
+4. Remove the Pipfile to allow the template to replace it. (`$ rm Pipfile`)
+5. Create a new project using this template:
+    ```
+    $ django-admin.py startproject --template=https://github.com/RadialDevGroup/heroku-django-template/archive/Django-2.2.zip --name=Procfile --name settings.yml --name settings.yml.example projectname .
+    ```
 
-You can replace ``projectname`` with your desired project name.
+    (If this doesn't work on windows, replace `django-admin.py` with `django-admin`)
 
-If you encounter an error like
-`CommandError: couldn't download URL https://github.com/RadialDevGroup/heroku-django-template/archive/master.zip to master.zip: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:749)>`
-check out this [StackOverflow](http://stackoverflow.com/questions/41691327/ssl-sslerror-ssl-certificate-verify-failed-certificate-verify-failed-ssl-c)
+    You can replace ``projectname`` with your desired project name.
+
+6. Install dependencies. (`pipenv install --dev`)
+
+## Troubleshooting
+  - If you encounter an error like
+      
+      `CommandError: couldn't download URL https://github.com/RadialDevGroup/heroku-django-template/archive/Django-2.2.zip to Django-2.2.zip: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:749)>`
+      
+      check out this [StackOverflow](http://stackoverflow.com/questions/41691327/ssl-sslerror-ssl-certificate-verify-failed-certificate-verify-failed-ssl-c)
+
+  - If pipenv install fails due to a `library not found for -lssl`, [try this](https://stackoverflow.com/a/39800677).
 
 ## Deployment to Heroku
 
@@ -44,10 +57,6 @@ check out this [StackOverflow](http://stackoverflow.com/questions/41691327/ssl-s
     $ heroku run python manage.py migrate
 
 See also, a [ready-made application](https://github.com/heroku/python-getting-started), ready to deploy.
-
-## Using Python 2.7?
-
-Just update `runtime.txt` to `python-2.7.13` (no trailing spaces or newlines!).
 
 
 ## License: MIT

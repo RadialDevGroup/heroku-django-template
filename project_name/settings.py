@@ -3,14 +3,15 @@ Django settings for {{ project_name }} project on Heroku. For more info, see:
 https://github.com/RadialDevGroup/heroku-django-template
 
 For more information on this file, see
-https://docs.djangoproject.com/en/1.11/topics/settings/
+https://docs.djangoproject.com/en/2.2/topics/settings/
 
 For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.11/ref/settings/
+https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os, sys
 import dj_database_url
+import django_heroku
 import yaml
 from django.core.exceptions import ImproperlyConfigured
 
@@ -20,19 +21,26 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 try:
     local_settings = open(os.path.join(PROJECT_ROOT, 'settings.yml'), 'r')
-    env = {**os.environ, **yaml.load(local_settings)}
+    env = {**os.environ, **yaml.load(local_settings, Loader=yaml.FullLoader)}
 except:
     env = os.environ
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
+# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env.get("SECRET_KEY", "{{ secret_key }}")
+SECRET_KEY = env.get("SECRET_KEY")
+assert SECRET_KEY, "SECRET_KEY is required"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.get("DEBUG", False)
 TEST = 'test' in sys.argv
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Allow all host headers
+ALLOWED_HOSTS = ['*']
 
 SITE_URL = env.get('SITE_URL', 'http://localhost:8000')
 
@@ -41,7 +49,8 @@ SECURE_SSL_REDIRECT = not DEBUG and not TEST
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    # Add your custom apps here
+    '{{ project_name }}.apps.{{ project_name|capfirst }}AdminConfig',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -69,7 +78,9 @@ ROOT_URLCONF = '{{ project_name }}.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(PROJECT_ROOT, 'templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -87,7 +98,7 @@ WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -99,26 +110,26 @@ DATABASES = {
 }
 
 # Change 'default' database configuration with $DATABASE_URL.
-DATABASES['default'].update(dj_database_url.config(conn_max_age=500))
+DATABASES['default'].update(dj_database_url.config(conn_max_age=500, ssl_require=True))
 
-if DEBUG == False:
-    AUTH_PASSWORD_VALIDATORS = [
-        {
-            'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-        },
-        {
-            'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-        },
-        {
-            'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-        },
-        {
-            'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-        },
-    ]
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
+if DEBUG: AUTH_PASSWORD_VALIDATORS = []
 
 # Internationalization
-# https://docs.djangoproject.com/en/1.11/topics/i18n/
+# https://docs.djangoproject.com/en/2.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = env.get('TIME_ZONE', 'UTC')
@@ -126,14 +137,8 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-# Honor the 'X-Forwarded-Proto' header for request.is_secure()
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-# Allow all host headers
-ALLOWED_HOSTS = ['*']
-
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.11/howto/static-files/
+# https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
@@ -157,3 +162,5 @@ if env.get('ROLLBAR_ACCESS_TOKEN', None):
         'root': '',
     }
 
+# Activate Django-Heroku.
+django_heroku.settings(locals())
